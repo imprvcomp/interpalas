@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpalas | International Logistics</title>
+    <meta name="description" content="Interpalas International Logistics - Soluciones integrales de logística internacional desde Buenos Aires, Argentina.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #0a1628;
+            --primary-light: #12253f;
+            --accent: #00b4d8;
+            --accent-glow: #0096c7;
+            --accent-dark: #0077b6;
+            --gold: #f0a500;
+            --white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-500: #6c757d;
+            --gray-700: #495057;
+            --gray-900: #212529;
+            --gradient-accent: linear-gradient(135deg, #00b4d8, #0077b6);
+            --gradient-dark: linear-gradient(135deg, #0a1628, #1a2d4a);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+            --shadow-glow: 0 0 40px rgba(0,180,216,0.3);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            background: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================
+           SCROLL ANIMATIONS
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger children */
+        .stagger-children .reveal:nth-child(1) { transition-delay: 0s; }
+        .stagger-children .reveal:nth-child(2) { transition-delay: 0.12s; }
+        .stagger-children .reveal:nth-child(3) { transition-delay: 0.24s; }
+        .stagger-children .reveal:nth-child(4) { transition-delay: 0.36s; }
+        .stagger-children .reveal:nth-child(5) { transition-delay: 0.48s; }
+        .stagger-children .reveal:nth-child(6) { transition-delay: 0.6s; }
+        .stagger-children .reveal:nth-child(7) { transition-delay: 0.72s; }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* LOGO */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            position: relative;
+        }
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        /* Animated globe paths */
+        .globe-ring {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+        }
+        .globe-ring-1 { animation: rotateGlobe 8s linear infinite; transform-origin: center; }
+        .globe-ring-2 { animation: rotateGlobe 12s linear infinite reverse; transform-origin: center; }
+        .globe-ring-3 { animation: pulseRing 4s ease-in-out infinite; transform-origin: center; }
+        .globe-dot {
+            fill: var(--gold);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+        .globe-dot:nth-child(2) { animation-delay: 0.5s; }
+        .globe-dot:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes rotateGlobe {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulseRing {
+            0%, 100% { opacity: 0.4; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 0.6; r: 2; }
+            50% { opacity: 1; r: 3; }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+        .logo-tagline {
+            font-size: 0.65rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        /* NAV LINKS */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover {
+            color: var(--white);
+            background: rgba(255,255,255,0.08);
+        }
+        .nav-cta {
+            background: var(--gradient-accent) !important;
+            color: var(--white) !important;
+            padding: 10px 24px !important;
+            border-radius: 50px !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 15px rgba(0,180,216,0.3);
+            transition: all 0.3s ease !important;
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,180,216,0.4) !important;
+            background: rgba(0,0,0,0) !important;
+            background-image: linear-gradient(135deg, #00c4e8, #0087c6) !important;
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-dark);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle 6s ease-in-out infinite;
+        }
+        @keyframes floatParticle {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+        }
+
+        /* Animated grid lines */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            from { transform: translate(0, 0); }
+            to { transform: translate(80px, 80px); }
+        }
+
+        /* Glowing orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: orbFloat 10s ease-in-out infinite;
+        }
+        .glow-orb-1 {
+            width: 500px; height: 500px;
+            background: var(--accent);
+            top: -200px; right: -100px;
+        }
+        .glow-orb-2 {
+            width: 400px; height: 400px;
+            background: var(--accent-dark);
+            bottom: -150px; left: -100px;
+            animation-delay: -5s;
+        }
+        .glow-orb-3 {
+            width: 300px; height: 300px;
+            background: var(--gold);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.06;
+            animation-delay: -3s;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -30px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--white);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        .hero-content h1 .text-gradient {
+            background: linear-gradient(135deg, var(--accent), #90e0ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(0,180,216,0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,180,216,0.5);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.25);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(0,180,216,0.08);
+            transform: translateY(-3px);
+        }
+
+        /* Hero right - animated globe/map */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-globe {
+            width: 420px;
+            height: 420px;
+            position: relative;
+        }
+        .hero-globe svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 40px rgba(0,180,216,0.2));
+        }
+
+        /* Route lines animation */
+        .route-line {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawRoute 3s ease-in-out forwards;
+            opacity: 0.6;
+        }
+        .route-line:nth-child(2) { animation-delay: 0.5s; stroke: var(--gold); }
+        .route-line:nth-child(3) { animation-delay: 1s; }
+        @keyframes drawRoute {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .location-pin {
+            animation: pinBounce 2s ease-in-out infinite;
+        }
+        .location-pin:nth-child(2) { animation-delay: 0.3s; }
+        .location-pin:nth-child(3) { animation-delay: 0.6s; }
+        .location-pin:nth-child(4) { animation-delay: 0.9s; }
+        @keyframes pinBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Floating stats card */
+        .floating-stat {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            color: var(--white);
+            animation: float 4s ease-in-out infinite;
+        }
+        .floating-stat-1 {
+            top: 20px; right: 0;
+            animation-delay: 0s;
+        }
+        .floating-stat-2 {
+            bottom: 40px; left: -20px;
+            animation-delay: -2s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .floating-stat .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .floating-stat .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        .scroll-indicator .mouse {
+            width: 24px;
+            height: 38px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            position: relative;
+        }
+        .scroll-indicator .mouse::after {
+            content: '';
+            width: 3px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mouseScroll 2s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+        @keyframes mouseScroll {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+        }
+
+        /* ============================================
+           TRUSTED BY / COUNTER SECTION
+           ============================================ */
+        .trust-bar {
+            background: var(--white);
+            padding: 60px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .trust-bar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .counter-item {
+            text-align: center;
+        }
+        .counter-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+        .counter-number .accent { color: var(--accent); }
+        .counter-label {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            margin-top: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        .about {
+            padding: 120px 0;
+            background: var(--gray-100);
+            position: relative;
+        }
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-visual {
+            position: relative;
+        }
+        .about-img-main {
+            width: 100%;
+            height: 480px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+        .about-img-main::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,180,216,0.08)" stroke-width="1"/></pattern></defs><rect fill="url(%23grid)" width="400" height="400"/></svg>');
+        }
+        .about-img-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        .about-icon-large {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+        }
+        .about-icon-large svg {
+            width: 100%;
+            height: 100%;
+        }
+        .about-img-text {
+            color: var(--white);
+            font-size: 1.1rem;
+            text-align: center;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        /* Experience badge */
+        .experience-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 140px;
+            height: 140px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            box-shadow: var(--shadow-glow);
+            z-index: 2;
+        }
+        .experience-badge .badge-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .experience-badge .badge-text {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .about-content .section-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .about-content p {
+            color: var(--gray-700);
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .about-feature:hover {
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+        .about-feature-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            background: rgba(0,180,216,0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+        .about-feature h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .about-feature p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           SERVICES SECTION
+           ============================================ */
+        .services {
+            padding: 120px 0;
+            background: var(--white);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-header .section-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .section-header p {
+            color: var(--gray-500);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(0,180,216,0.08);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+        .service-card:hover .service-icon {
+            background: var(--gradient-accent);
+        }
+        .service-card:hover .service-icon svg path,
+        .service-card:hover .service-icon svg rect,
+        .service-card:hover .service-icon svg circle,
+        .service-card:hover .service-icon svg polygon {
+            stroke: white;
+        }
+        .service-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+        .service-card h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .service-card p {
+            color: var(--gray-500);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .service-link:hover { gap: 10px; }
+        .service-link svg { width: 16px; height: 16px; transition: var(--transition); }
+
+        /* Bottom row for remaining services */
+        .services-bottom {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .service-mini {
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .service-mini:hover {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        .service-mini-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0,180,216,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+        }
+        .service-mini-icon svg { width: 22px; height: 22px; }
+        .service-mini h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .service-mini p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           WHY US / VALUES SECTION
+           ============================================ */
+        .why-us {
+            padding: 120px 0;
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .why-us::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(0,180,216,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(240,165,0,0.05) 0%, transparent 50%);
+        }
+        .why-us .section-header h2 { color: var(--white); }
+        .why-us .section-header p { color: rgba(255,255,255,0.6); }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .value-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        .value-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(0,180,216,0.3);
+            transform: translateY(-6px);
+        }
+        .value-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 24px;
+            background: rgba(0,180,216,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .value-icon svg { width: 32px; height: 32px; }
+        .value-card h3 {
+            color: var(--white);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+        .value-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta {
+            padding: 100px 0;
+            background: var(--gray-100);
+            position: relative;
+        }
+        .cta-card {
+            background: var(--gradient-dark);
+            border-radius: 24px;
+            padding: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 50%, rgba(0,180,216,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(240,165,0,0.08) 0%, transparent 50%);
+        }
+        .cta-card h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        .contact {
+            padding: 120px 0;
+            background: var(--white);
+        }
+        .contact .container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+        }
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .contact-info > p {
+            color: var(--gray-500);
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+        }
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .contact-item-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: rgba(0,180,216,0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+        .contact-item-icon svg { width: 22px; height: 22px; }
+        .contact-item h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .contact-item p, .contact-item a {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+        .contact-item a:hover { color: var(--accent); }
+
+        /* Contact form */
+        .contact-form-wrapper {
+            background: var(--gray-100);
+            border-radius: var(--radius);
+            padding: 48px;
+        }
+        .contact-form-wrapper h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-900);
+            background: var(--white);
+            transition: var(--transition);
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0,180,216,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            justify-content: center;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 0;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-brand p {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .footer h4 {
+            color: var(--white);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .footer ul li { margin-bottom: 10px; }
+        .footer ul a {
+            font-size: 0.88rem;
+            transition: var(--transition);
+        }
+        .footer ul a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.82rem;
+        }
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--white);
+        }
+        .social-links a svg { width: 16px; height: 16px; }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content p { margin: 0 auto 40px; }
+            .hero-buttons { justify-content: center; }
+            .hero-visual { display: none; }
+            .about .container { grid-template-columns: 1fr; gap: 60px; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-bottom { grid-template-columns: repeat(2, 1fr); }
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact .container { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10,22,40,0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+                backdrop-filter: blur(20px);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { font-size: 1.2rem; }
+            .menu-toggle { display: flex; }
+
+            .hero-content h1 { font-size: 2.2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .services-bottom { grid-template-columns: 1fr 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .cta-card { padding: 48px 24px; }
+            .cta-card h2 { font-size: 1.8rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .about-features { grid-template-columns: 1fr; }
+            .experience-badge { right: 10px; bottom: -20px; width: 110px; height: 110px; }
+            .experience-badge .badge-number { font-size: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 1.8rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .section-header h2 { font-size: 2rem; }
+            .trust-bar .container { flex-direction: column; gap: 30px; }
+            .services-bottom { grid-template-columns: 1fr; }
+            .contact-form-wrapper { padding: 28px; }
+        }
+
+        /* ============================================
+           PRELOADER
+           ============================================ */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-logo {
+            animation: preloaderPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes preloaderPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Smooth page entrance */
+        .page-content {
+            opacity: 0;
+            transition: opacity 0.6s ease 0.3s;
+        }
+        .page-content.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="35" fill="none" stroke="#00b4d8" stroke-width="2" opacity="0.3"/>
+                <ellipse cx="40" cy="40" rx="35" ry="18" fill="none" stroke="#00b4d8" stroke-width="1.5" class="globe-ring-1"/>
+                <ellipse cx="40" cy="40" rx="18" ry="35" fill="none" stroke="#00b4d8" stroke-width="1.5" class="globe-ring-2"/>
+                <circle cx="40" cy="12" r="3" fill="#f0a500" class="globe-dot"/>
+                <circle cx="60" cy="40" r="3" fill="#00b4d8" class="globe-dot"/>
+                <circle cx="25" cy="60" r="3" fill="#f0a500" class="globe-dot"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="page-content" id="pageContent">
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20" fill="none" stroke="#00b4d8" stroke-width="1.5" opacity="0.4"/>
+                        <ellipse cx="24" cy="24" rx="20" ry="10" fill="none" stroke="#00b4d8" stroke-width="1.2" class="globe-ring-1"/>
+                        <ellipse cx="24" cy="24" rx="10" ry="20" fill="none" stroke="#00b4d8" stroke-width="1.2" class="globe-ring-2"/>
+                        <line x1="4" y1="24" x2="44" y2="24" stroke="#00b4d8" stroke-width="0.8" opacity="0.3" class="globe-ring-3"/>
+                        <circle cx="24" cy="8" r="2" class="globe-dot"/>
+                        <circle cx="36" cy="24" r="2" class="globe-dot"/>
+                        <circle cx="16" cy="36" r="2" class="globe-dot"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">Interpalas</span>
+                    <span class="logo-tagline">International Logistics</span>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#inicio">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#valores">Ventajas</a>
+                <a href="#contacto">Contacto</a>
+                <a href="#contacto" class="nav-cta">Cotizar</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+            <div class="glow-orb glow-orb-1"></div>
+            <div class="glow-orb glow-orb-2"></div>
+            <div class="glow-orb glow-orb-3"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="reveal">
+                    Soluciones de<br>
+                    <span class="text-gradient">logistica internacional</span><br>
+                    que mueven tu negocio
+                </h1>
+                <p class="reveal" style="transition-delay: 0.15s;">
+                    Nuestro equipo esta dedicado a ofrecer un servicio integral de comercio internacional, optimizando costos y plazos de entrega con seguimiento en tiempo real.
+                </p>
+                <div class="hero-buttons reveal" style="transition-delay: 0.3s;">
+                    <a href="#contacto" class="btn btn-primary">
+                        Solicitar cotizacion
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="#servicios" class="btn btn-outline">Nuestros servicios</a>
+                </div>
+            </div>
+
+            <div class="hero-visual reveal-scale" style="transition-delay: 0.4s;">
+                <div class="hero-globe">
+                    <svg viewBox="0 0 420 420">
+                        <!-- Globe base -->
+                        <circle cx="210" cy="210" r="180" fill="none" stroke="rgba(0,180,216,0.15)" stroke-width="1"/>
+                        <circle cx="210" cy="210" r="140" fill="none" stroke="rgba(0,180,216,0.1)" stroke-width="1"/>
+                        <circle cx="210" cy="210" r="100" fill="none" stroke="rgba(0,180,216,0.08)" stroke-width="1"/>
+
+                        <!-- Meridians -->
+                        <ellipse cx="210" cy="210" rx="180" ry="60" fill="none" stroke="rgba(0,180,216,0.12)" stroke-width="1"/>
+                        <ellipse cx="210" cy="210" rx="180" ry="120" fill="none" stroke="rgba(0,180,216,0.1)" stroke-width="1"/>
+                        <ellipse cx="210" cy="210" rx="60" ry="180" fill="none" stroke="rgba(0,180,216,0.12)" stroke-width="1"/>
+                        <ellipse cx="210" cy="210" rx="120" ry="180" fill="none" stroke="rgba(0,180,216,0.1)" stroke-width="1"/>
+
+                        <!-- Route lines -->
+                        <path d="M 100 180 Q 210 100 320 200" class="route-line"/>
+                        <path d="M 150 280 Q 250 200 350 160" class="route-line"/>
+                        <path d="M 80 240 Q 200 180 340 250" class="route-line"/>
+
+                        <!-- Location pins -->
+                        <g class="location-pin">
+                            <circle cx="100" cy="180" r="8" fill="#00b4d8" opacity="0.3"/>
+                            <circle cx="100" cy="180" r="4" fill="#00b4d8"/>
+                        </g>
+                        <g class="location-pin">
+                            <circle cx="320" cy="200" r="8" fill="#f0a500" opacity="0.3"/>
+                            <circle cx="320" cy="200" r="4" fill="#f0a500"/>
+                        </g>
+                        <g class="location-pin">
+                            <circle cx="210" cy="300" r="8" fill="#00b4d8" opacity="0.3"/>
+                            <circle cx="210" cy="300" r="4" fill="#00b4d8"/>
+                        </g>
+                        <g class="location-pin">
+                            <circle cx="340" cy="250" r="8" fill="#f0a500" opacity="0.3"/>
+                            <circle cx="340" cy="250" r="4" fill="#f0a500"/>
+                        </g>
+
+                        <!-- Animated pulse -->
+                        <circle cx="100" cy="180" r="4" fill="none" stroke="#00b4d8" stroke-width="1.5">
+                            <animate attributeName="r" values="4;20;4" dur="3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="320" cy="200" r="4" fill="none" stroke="#f0a500" stroke-width="1.5">
+                            <animate attributeName="r" values="4;20;4" dur="3s" begin="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" begin="1s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+
+                <div class="floating-stat floating-stat-1">
+                    <div class="stat-number">20,000+</div>
+                    <div class="stat-label">Contenedores gestionados</div>
+                </div>
+                <div class="floating-stat floating-stat-2">
+                    <div class="stat-number">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2" stroke-linecap="round" style="display:inline; vertical-align:middle; margin-right:4px;"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Global
+                    </div>
+                    <div class="stat-label">Cobertura mundial</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- TRUST BAR / COUNTERS -->
+    <section class="trust-bar">
+        <div class="container stagger-children">
+            <div class="counter-item reveal">
+                <div class="counter-number"><span class="accent" data-target="20000">0</span>+</div>
+                <div class="counter-label">Contenedores</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="counter-number"><span class="accent" data-target="50">0</span>+</div>
+                <div class="counter-label">Paises</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="counter-number"><span class="accent" data-target="15">0</span>+</div>
+                <div class="counter-label">Anos de experiencia</div>
+            </div>
+            <div class="counter-item reveal">
+                <div class="counter-number"><span class="accent" data-target="500">0</span>+</div>
+                <div class="counter-label">Clientes satisfechos</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="nosotros">
+        <div class="container">
+            <div class="about-visual reveal-left">
+                <div class="about-img-main">
+                    <div class="about-img-content">
+                        <div class="about-icon-large">
+                            <svg viewBox="0 0 120 120" fill="none">
+                                <circle cx="60" cy="60" r="55" stroke="#00b4d8" stroke-width="1" opacity="0.2"/>
+                                <path d="M30 70 L50 50 L70 65 L90 40" stroke="#00b4d8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <animate attributeName="stroke-dasharray" values="0 200;200 200" dur="2s" fill="freeze"/>
+                                </path>
+                                <circle cx="30" cy="70" r="4" fill="#f0a500">
+                                    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="0.5s" fill="freeze"/>
+                                </circle>
+                                <circle cx="50" cy="50" r="4" fill="#00b4d8">
+                                    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1s" fill="freeze"/>
+                                </circle>
+                                <circle cx="70" cy="65" r="4" fill="#f0a500">
+                                    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="1.5s" fill="freeze"/>
+                                </circle>
+                                <circle cx="90" cy="40" r="4" fill="#00b4d8">
+                                    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="2s" fill="freeze"/>
+                                </circle>
+                            </svg>
+                        </div>
+                        <p class="about-img-text">
+                            Conectamos tu negocio con el mundo a traves de soluciones logisticas eficientes y confiables
+                        </p>
+                    </div>
+                </div>
+                <div class="experience-badge">
+                    <div class="badge-number">15+</div>
+                    <div class="badge-text">anos de<br>experiencia</div>
+                </div>
+            </div>
+
+            <div class="about-content reveal-right">
+                <span class="section-label">Sobre nosotros</span>
+                <h2>Logistica y transporte confiable que mueve su negocio</h2>
+                <p>
+                    En Interpalas, combinamos experiencia, tecnologia y dedicacion para ofrecer soluciones integrales de comercio internacional. Nuestro equipo profesional esta comprometido con la excelencia, garantizando que cada envio llegue de manera segura, eficiente y a tiempo.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <div>
+                            <h4>Seguimiento en tiempo real</h4>
+                            <p>Monitoreo 24/7 de todas tus cargas</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div>
+                            <h4>Optimizacion de costos</h4>
+                            <p>Las mejores tarifas del mercado</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <div>
+                            <h4>Equipo profesional</h4>
+                            <p>Expertos en comercio exterior</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <div>
+                            <h4>Transparencia total</h4>
+                            <p>Informacion clara en cada paso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Nuestros servicios</span>
+                <h2>Soluciones integrales de logistica</h2>
+                <p>Ofrecemos un servicio completo de punta a punta para todas tus necesidades de comercio internacional</p>
+            </div>
+
+            <div class="services-grid stagger-children">
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <rect x="2" y="10" width="24" height="14" rx="2"/>
+                            <path d="M7 10V6a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4"/>
+                            <line x1="2" y1="16" x2="26" y2="16"/>
+                            <circle cx="14" cy="16" r="2"/>
+                        </svg>
+                    </div>
+                    <h3>Despacho de Aduana</h3>
+                    <p>Gestion profesional de tramites aduaneros para importacion y exportacion. Documentacion, clasificacion arancelaria y liberacion de cargas.</p>
+                    <a href="#contacto" class="service-link">
+                        Consultar
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                    </a>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M3 20 Q14 6 25 20"/>
+                            <path d="M3 22h22"/>
+                            <rect x="10" y="14" width="8" height="8" rx="1"/>
+                            <line x1="14" y1="14" x2="14" y2="22"/>
+                        </svg>
+                    </div>
+                    <h3>Transporte Maritimo</h3>
+                    <p>Soluciones expertas de transporte maritimo con precios competitivos. FCL, LCL y seguimiento completo de cada embarque.</p>
+                    <a href="#contacto" class="service-link">
+                        Consultar
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                    </a>
+                </div>
+
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 28 28" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M3 22l8-16h6l8 16"/>
+                            <path d="M7 16h14"/>
+                            <circle cx="14" cy="10" r="2"/>
+                        </svg>
+                    </div>
+                    <h3>Transporte Aereo</h3>
+                    <p>Soluciones multimodales aereas con control de calidad y garantia de satisfaccion. Ideal para cargas urgentes y de alto valor.</p>
+                    <a href="#contacto" class="service-link">
+                        Consultar
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="services-bottom stagger-children">
+                <div class="service-mini reveal">
+                    <div class="service-mini-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <rect x="1" y="6" width="15" height="12" rx="2"/>
+                            <path d="M16 10h4l3 3v5h-7V10z"/>
+                            <circle cx="7" cy="20" r="2"/>
+                            <circle cx="20" cy="20" r="2"/>
+                        </svg>
+                    </div>
+                    <h4>Transporte Terrestre</h4>
+                    <p>FTL, LTL, refrigerado y carga seca puerta a puerta</p>
+                </div>
+                <div class="service-mini reveal">
+                    <div class="service-mini-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
+                        </svg>
+                    </div>
+                    <h4>Servicios Portuarios</h4>
+                    <p>Operaciones portuarias completas y eficientes</p>
+                </div>
+                <div class="service-mini reveal">
+                    <div class="service-mini-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h4>Seguros</h4>
+                    <p>Cobertura integral para proteger tus cargas</p>
+                </div>
+                <div class="service-mini reveal">
+                    <div class="service-mini-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                    </div>
+                    <h4>Consultoria Logistica</h4>
+                    <p>Asesoria especializada en comercio exterior</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="why-us" id="valores">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-label">Por que elegirnos</span>
+                <h2>Ventajas competitivas</h2>
+                <p>Nuestro compromiso con la excelencia nos distingue en la industria</p>
+            </div>
+
+            <div class="values-grid stagger-children">
+                <div class="value-card reveal">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 32 32" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <circle cx="16" cy="16" r="12"/>
+                            <path d="M16 8v8l5 3"/>
+                        </svg>
+                    </div>
+                    <h3>Eficiencia y puntualidad</h3>
+                    <p>Optimizamos cada proceso para garantizar entregas en tiempo y forma, respetando los plazos acordados.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 32 32" fill="none" stroke="#f0a500" stroke-width="1.8" stroke-linecap="round">
+                            <path d="M16 4l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/>
+                        </svg>
+                    </div>
+                    <h3>Excelencia profesional</h3>
+                    <p>Un equipo altamente capacitado con amplia trayectoria en comercio internacional y logistica.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 32 32" fill="none" stroke="#00b4d8" stroke-width="1.8" stroke-linecap="round">
+                            <rect x="4" y="12" width="24" height="16" rx="3"/>
+                            <path d="M8 12V9a8 8 0 0 1 16 0v3"/>
+                            <circle cx="16" cy="21" r="2"/>
+                            <line x1="16" y1="23" x2="16" y2="25"/>
+                        </svg>
+                    </div>
+                    <h3>Confianza y seguridad</h3>
+                    <p>Transparencia total en cada operacion. Tu carga esta protegida y asegurada en todo momento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card reveal-scale">
+                <h2>Listo para optimizar tu logistica?</h2>
+                <p>Contactanos hoy y recibiras una cotizacion personalizada sin compromiso para tu proxima operacion.</p>
+                <div class="cta-buttons">
+                    <a href="#contacto" class="btn btn-primary">
+                        Solicitar cotizacion
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="mailto:info@interpalas.com.ar" class="btn btn-outline" style="border-color:rgba(255,255,255,0.3);">Enviar email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contacto">
+        <div class="container">
+            <div class="contact-info reveal-left">
+                <span class="section-label" style="font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;font-weight:600;display:block;margin-bottom:16px;">Contacto</span>
+                <h2>Hablemos de tu proximo proyecto</h2>
+                <p>Estamos listos para ayudarte con tus necesidades de logistica internacional</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:info@interpalas.com.ar">info@interpalas.com.ar</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Ubicacion</h4>
+                            <p>Buenos Aires, Argentina</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Horario</h4>
+                            <p>Lunes a Viernes, 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper reveal-right">
+                <h3>Solicita tu cotizacion</h3>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nombre completo</label>
+                            <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company">Empresa</label>
+                            <input type="text" id="company" name="company" placeholder="Nombre de tu empresa">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Servicio</label>
+                            <select id="service" name="service">
+                                <option value="">Seleccionar servicio</option>
+                                <option value="aduana">Despacho de Aduana</option>
+                                <option value="maritimo">Transporte Maritimo</option>
+                                <option value="aereo">Transporte Aereo</option>
+                                <option value="terrestre">Transporte Terrestre</option>
+                                <option value="portuario">Servicios Portuarios</option>
+                                <option value="seguro">Seguros</option>
+                                <option value="consultoria">Consultoria Logistica</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" placeholder="Contanos sobre tu operacion..." rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        Enviar solicitud
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-icon" style="width:40px;height:40px;">
+                            <svg viewBox="0 0 48 48">
+                                <circle cx="24" cy="24" r="20" fill="none" stroke="#00b4d8" stroke-width="1.5" opacity="0.4"/>
+                                <ellipse cx="24" cy="24" rx="20" ry="10" fill="none" stroke="#00b4d8" stroke-width="1.2"/>
+                                <ellipse cx="24" cy="24" rx="10" ry="20" fill="none" stroke="#00b4d8" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">Interpalas</span>
+                            <span class="logo-tagline">International Logistics</span>
+                        </div>
+                    </a>
+                    <p>Soluciones integrales de logistica internacional desde Buenos Aires para el mundo. Tu socio estrategico en comercio exterior.</p>
+                </div>
+                <div>
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#servicios">Despacho de Aduana</a></li>
+                        <li><a href="#servicios">Transporte Maritimo</a></li>
+                        <li><a href="#servicios">Transporte Aereo</a></li>
+                        <li><a href="#servicios">Transporte Terrestre</a></li>
+                        <li><a href="#servicios">Seguros</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#nosotros">Sobre nosotros</a></li>
+                        <li><a href="#valores">Ventajas</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#contacto">Cotizar</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="mailto:info@interpalas.com.ar">info@interpalas.com.ar</a></li>
+                        <li>Buenos Aires, Argentina</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2024 Interpalas International Logistics. Todos los derechos reservados.</span>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    </div> <!-- /page-content -->
+
+    <script>
+        // ============================================
+        // PRELOADER
+        // ============================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+                document.getElementById('pageContent').classList.add('loaded');
+            }, 800);
+        });
+
+        // ============================================
+        // NAVBAR SCROLL EFFECT
+        // ============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ============================================
+        // SCROLL REVEAL ANIMATIONS
+        // ============================================
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============================================
+        // COUNTER ANIMATION
+        // ============================================
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('[data-target]');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const increment = target / (duration / 16);
+                        let current = 0;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                counter.textContent = target.toLocaleString();
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.floor(current).toLocaleString();
+                            }
+                        }, 16);
+                    });
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.trust-bar .container').forEach(el => {
+            counterObserver.observe(el);
+        });
+
+        // ============================================
+        // FLOATING PARTICLES (Hero)
+        // ============================================
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg) {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (4 + Math.random() * 4) + 's';
+                particle.style.width = (2 + Math.random() * 3) + 'px';
+                particle.style.height = particle.style.width;
+                heroBg.appendChild(particle);
+            }
+        }
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ============================================
+        // FORM SUBMIT
+        // ============================================
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Enviado correctamente';
+            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // ============================================
+        // PARALLAX on mouse move (subtle)
+        // ============================================
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.glow-orb');
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            orbs.forEach((orb, i) => {
+                const factor = (i + 1) * 0.5;
+                orb.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
